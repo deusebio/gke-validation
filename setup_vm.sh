@@ -15,8 +15,8 @@ sudo apt install -y kubectl
 sudo apt install -y google-cloud-sdk-gke-gcloud-auth-plugin
 
 export HOME=/home/ubuntu
-gcloud container clusters get-credentials "${google_container_cluster.default.name}" --region "${google_container_cluster.default.location}" --project "${var.project_id}"
-kubectl config rename-context gke_"${var.project_id}"_"${google_container_cluster.default.location}"_"${google_container_cluster.default.name}" gke-cluster
+gcloud container clusters get-credentials ${cluster_name} --region ${cluster_region} --project ${project_id}
+kubectl config rename-context gke_${project_id}_${cluster_region}_${cluster_name} gke-cluster
 sudo chown -R ubuntu:ubuntu /home/ubuntu/.kube
 sudo chown -R ubuntu:ubuntu /home/ubuntu/.config
 echo "GKE access configured on this VM!"
@@ -33,4 +33,4 @@ sudo snap install yq jhack
 mkdir -p /home/ubuntu/.local/share/juju
 sudo chown -R ubuntu:ubuntu /home/ubuntu/.local
 
-sudo -u ubuntu juju bootstrap k8s --debug
+sudo -u ubuntu juju bootstrap k8s --debug --config controller-service-type=loadbalancer

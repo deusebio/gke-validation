@@ -23,7 +23,11 @@ resource "google_compute_instance" "vm" {
     ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
 
-  metadata_startup_script = file("${path.module}/setup_vm.sh")
+  metadata_startup_script = templatefile("${path.module}/setup_vm.sh", {
+    cluster_name  = google_container_cluster.default.name
+    cluster_region = google_container_cluster.default.location
+    project_id    = var.project_id
+  })
 
   service_account {
     email  = google_service_account.vm_sa.email
