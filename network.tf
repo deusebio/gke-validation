@@ -3,7 +3,7 @@ resource "google_compute_network" "default" {
 
   auto_create_subnetworks  = false
   enable_ula_internal_ipv6 = true
-  project = var.project_id
+  project                  = var.project_id
 }
 
 resource "google_compute_subnetwork" "default" {
@@ -25,6 +25,6 @@ resource "google_compute_subnetwork" "default" {
 
   secondary_ip_range {
     range_name    = "pod-ranges"
-    ip_cidr_range = "192.168.16.0/20"  # Correctly aligned CIDR block
+    ip_cidr_range = "192.168.16.0/20" # Correctly aligned CIDR block
   }
 }

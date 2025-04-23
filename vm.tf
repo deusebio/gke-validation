@@ -24,9 +24,9 @@ resource "google_compute_instance" "vm" {
   }
 
   metadata_startup_script = templatefile("${path.module}/setup_vm.sh", {
-    cluster_name  = google_container_cluster.default.name
+    cluster_name   = google_container_cluster.default.name
     cluster_region = google_container_cluster.default.location
-    project_id    = var.project_id
+    project_id     = var.project_id
   })
 
   service_account {
@@ -63,5 +63,5 @@ resource "google_compute_firewall" "open_ssh" {
   }
 
   source_ranges = ["0.0.0.0/0"] # Open to everyone
-  target_tags   = ["gke-access"]
+  # target_tags   = ["gke-access"]
 }
